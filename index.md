@@ -2,7 +2,6 @@
 layout: default
 title: Jeremy Schoenick - Technical Resume
 ---
-# Jeremy Schoenick
 Minnesota, USA | j.schoenick@pm.me | [LinkedIn](https://www.linkedin.com/in/jeremy-s-93686567) | [GitHub](https://github.com/Meekseek)
 
 ### PROFESSIONAL SUMMARY
