@@ -2,7 +2,7 @@
 layout: default
 title: Jeremy Schoenick - Technical Resume
 ---
-Minnesota, USA | j.schoenick@pm.me | [LinkedIn](https://www.linkedin.com/in/jeremy-s-93686567) | [GitHub](https://github.com/Meekseek)
+Minnesota, USA | [j.schoenick@pm.me](mailto:j.schoenick@pm.me) | [LinkedIn](https://www.linkedin.com/in/jeremy-s-93686567) | [GitHub](https://github.com/Meekseek)
 
 ### PROFESSIONAL SUMMARY
 Cross-functional leader and aspiring cybersecurity professional combining 3+ years of technical operations and team leadership with advanced self-directed study. Possessing a foundational Computer Science background and holding a Google Cybersecurity Professional Certificate, I have practical experience building and defending a virtual Security Operations Center (SOC) home lab environment. Seeking an entry-level technical apprenticeship to apply cross-functional leadership, hands-on troubleshooting skills, and a strong aptitude for network defense and system integrity.
