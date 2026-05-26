@@ -16,7 +16,7 @@ Cross-functional leader and aspiring cybersecurity professional combining 3+ yea
 
 ### PROJECTS
 
-#### [Virtual Security Operations Center (SOC) | Home Lab](https://github.com/Meekseek)
+#### [Virtual Security Operations Center (SOC) | Home Lab](https://github.com/Meekseek/Home-Lab-SOC-Wazuh)
 * **Virtual SOC & SIEM Deployment:** Engineered an isolated virtual network utilizing a Proxmox VE hypervisor, deploying a centralized Wazuh SIEM on Ubuntu Server to ingest and analyze endpoint telemetry across both Linux (Kali) and Windows 11 Enterprise target agents.
 * **Windows Auditing & Sysmon Integration:** Configured and deployed Microsoft Sysmon on the Windows 11 target node, establishing granular host-level telemetry streams (process creation, network connections) into the SIEM pipeline to enable advanced defensive tracking.
 * **Infrastructure Resilience & LVM Troubleshooting:** Diagnosed and resolved a critical 100% root partition disk exhaustion crash on the Ubuntu SIEM node; executed Linux CLI systems administration and Logical Volume Management (LVM) commands to dynamically expand partitions and restore core indexing database clusters without data loss.
@@ -24,13 +24,13 @@ Cross-functional leader and aspiring cybersecurity professional combining 3+ yea
 * **Attack Simulation & Analysis:** Executed a simulated SSH brute-force attack using Hydra, utilizing OpenSearch to filter raw JSON logs, identify attacker IPs, and map the telemetry to the MITRE ATT&CK framework (T1110).
 * **Automated Threat Mitigation (SOAR):** Engineered active defense capabilities using Wazuh's Active Response module; dynamically deployed endpoint firewall rules to isolate attacker IPs upon detecting SSH brute-force thresholds.
 
-#### Python Network Port Scanner | Personal Project
+#### [Python Network Port Scanner | Personal Project](https://github.com/Meekseek/Port-Scanner)
 * Engineered a CLI-based network diagnostic tool using Python's socket library to audit well-known ports (1-1024) on target devices.
 * Optimized tool performance by implementing a 0.5s connection timeout, rapidly identifying open TCP services without stalling on closed ports.
 * Developed robust error handling using try/except blocks to gracefully manage connection refusals and user interruptions.
 * Deployed the script on a home network to verify router security configurations and identify active servers.
 
-#### Linux Network Hardening | Home Lab
+#### [Linux Network Hardening | Home Lab](https://github.com/Meekseek/pi-hole-deployment)
 * Configured a Raspberry Pi 5 as a secure Linux server, establishing strict user permission policies (chmod/chown).
 * Hardened server access by implementing SSH key-based authentication and disabling password login to simulate industry-standard practices.
 
