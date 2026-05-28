@@ -21,7 +21,7 @@ jobs:
         uses: JustinBeckwith/md-to-pdf@v2
         with:
           input_path: index.md
-          output_path: resume.pdf
+          output_path: Jeremy_Schoenick_Cybersecurity_Resume.pdf
           config: |
             body {
               font-family: Arial, sans-serif;
@@ -59,6 +59,6 @@ jobs:
         run: |
           git config --local user.email "pdf-compiler@github.com"
           git config --local user.name "Resume-PDF-Bot"
-          git add resume.pdf
+          git add Jeremy_Schoenick_Cybersecurity_Resume.pdf
           git diff-index --quiet HEAD || git commit -m "Automation: Compiled fresh resume.pdf from index.md updates"
           git push
