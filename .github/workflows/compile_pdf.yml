@@ -28,7 +28,6 @@ jobs:
 
       - name: Compile Markdown to Professional PDF
         env:
-          # 🌟 PULLS YOUR HIDDEN PHONE NUMBER SAFELY INTO THE TEMPORARY RUNNER
           REAL_PHONE: ${{ secrets.RECRUITER_PHONE }}
         run: |
           python -c '
@@ -44,18 +43,28 @@ jobs:
           if text.startswith("---"):
               _, _, text = text.split("---", 2)
 
-          # Convert to HTML structure
-          raw_html = markdown.markdown(text)
-
-          # Grab the phone number from the secure environment variable
+          # Split the text by lines to isolate and swap the header
+          lines = text.strip().split("\n")
+          
+          # Grab your phone secret
           phone_number = os.environ.get("REAL_PHONE", "(###) ###-####")
 
-          # Inject the real phone number right under the main title header programmatically
-          header_addition = f"""
-          <div style="text-align: center; margin-bottom: 12pt; font-size: 10pt;">
+          # Create the comprehensive recruiter header
+          recruiter_header = f"""
+          <div style="text-align: center; margin-bottom: 16pt; font-size: 11pt;">
+              <h2 style="margin: 0 0 4pt 0; text-transform: uppercase; color: #222222; font-size: 20pt; letter-spacing: 0.5px;">Jeremy Schoenick</h2>
               Minnesota, USA | <a href="mailto:j.schoenick@pm.me">j.schoenick@pm.me</a> | {phone_number} | <a href="https://www.linkedin.com/in/jeremy-s-93686567">LinkedIn</a> | <a href="https://github.com/Meekseek">GitHub</a>
           </div>
           """
+
+          # Check if the first line is your public links line, and swap it out cleanly
+          if "Minnesota, USA" in lines[0]:
+              body_markdown = "\n".join(lines[1:])
+          else:
+              body_markdown = "\n".join(lines)
+
+          # Convert the remaining text bodies into standard HTML tags
+          raw_body_html = markdown.markdown(body_markdown)
 
           # Apply professional typography styles for recruiters
           styled_html = f"""
@@ -64,7 +73,7 @@ jobs:
           <style>
               @page {{ size: letter; margin: 0.6in; }}
               body {{ font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #222222; }}
-              h3 {{ border-bottom: 2px solid #0056b3; color: #0056b3; margin-top: 16pt; margin-bottom: 6pt; text-transform: uppercase; font-size: 12pt; }}
+              h3 {{ border-bottom: 2px solid #0056b3; color: #0056b3; margin-top: 18pt; margin-bottom: 6pt; text-transform: uppercase; font-size: 12pt; }}
               h4 {{ margin-top: 8pt; margin-bottom: 2pt; font-size: 11pt; font-weight: bold; }}
               ul {{ margin-top: 2pt; padding-left: 18px; }}
               li {{ margin-bottom: 4pt; }}
@@ -72,15 +81,15 @@ jobs:
           </style>
           </head>
           <body>
-              {header_addition}
-              {raw_html}
+              {recruiter_header}
+              {raw_body_html}
           </body>
           </html>
           """
 
           # Render direct to clean PDF output
           HTML(string=styled_html).write_pdf("Jeremy_Schoenick_Cybersecurity_Resume.pdf")
-          print("Successfully compiled secure resume PDF with phone deployment.")
+          print("Successfully compiled unified resume PDF.")
           '
 
       - name: Commit and Push Generated PDF
@@ -88,5 +97,5 @@ jobs:
           git config --local user.email "pdf-compiler@github.com"
           git config --local user.name "Resume-PDF-Bot"
           git add Jeremy_Schoenick_Cybersecurity_Resume.pdf
-          git diff-index --quiet HEAD || git commit -m "Automation: Compiled fresh professional resume PDF via Python compiler"
+          git diff-index --quiet HEAD || git commit -m "Automation: Compiled unified professional resume PDF via Python swap engine"
           git push
