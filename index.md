@@ -21,10 +21,11 @@ Cross-functional leader and aspiring cybersecurity professional combining 3+ yea
 
 #### [Virtual Security Operations Center (SOC) | Home Lab](https://github.com/Meekseek/Home-Lab-SOC-Wazuh)
 * **Virtual SOC & SIEM Deployment:** Engineered an isolated virtual network utilizing a Proxmox VE hypervisor, deploying a centralized Wazuh SIEM on Ubuntu Server to ingest and analyze endpoint telemetry across both Linux (Kali) and Windows 11 Enterprise target agents.
-* **Windows Auditing & Sysmon Integration:** Configured and deployed Microsoft Sysmon on the Windows 11 target node, establishing granular host-level telemetry streams (process creation, network connections) into the SIEM pipeline to enable advanced defensive tracking.
+* **Windows Auditing & Sysmon Integration:** Configured and deployed Microsoft Sysmon on the Windows 11 target node, establishing granular host-level telemetry streams (process creation, network connections) into the SIEM configuration (`ossec.conf`) to enable advanced defensive tracking.
+* **Incident Attack Simulation:** Executed a simulated multi-stage network discovery string (DNS enumeration via `nslookup`) to generate live attack telemetry, analyze indicators of compromise (IoCs), and validate SIEM alert routing rules.
+* **Host-Level Forensic Triage:** Demonstrated endpoint-level triage capabilities when centralized SIEM pipeline logic encountered an engineering block; utilized administrative PowerShell commands (`Get-WinEvent`) to directly parse the Windows kernel subsystem and manually extract Sysmon Event ID 1 (Process Creation) forensic artifacts.
 * **Infrastructure Resilience & LVM Troubleshooting:** Diagnosed and resolved a critical 100% root partition disk exhaustion crash on the Ubuntu SIEM node; executed Linux CLI systems administration and Logical Volume Management (LVM) commands to dynamically expand partitions and restore core indexing database clusters without data loss.
 * **Network Log Engineering:** Diagnosed and resolved SSH log visibility gaps on the target endpoint by configuring rsyslog pipelines, successfully routing critical security events to the SIEM.
-* **Attack Simulation & Analysis:** Executed a simulated SSH brute-force attack using Hydra, utilizing OpenSearch to filter raw JSON logs, identify attacker IPs, and map the telemetry to the MITRE ATT&CK framework (T1110).
 * **Automated Threat Mitigation (SOAR):** Engineered active defense capabilities using Wazuh's Active Response module; dynamically deployed endpoint firewall rules to isolate attacker IPs upon detecting SSH brute-force thresholds.
 
 #### [Python Network Port Scanner | Personal Project](https://github.com/Meekseek/Port-Scanner)
