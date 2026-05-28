@@ -54,4 +54,4 @@ Cross-functional leader and aspiring cybersecurity professional combining 3+ yea
 * **Bachelor of Science, Computer Science** | University of the People, Expected Graduation: 2029
 * **CompTIA Security+ (SY0-701)** | In Progress — Anticipated Completion: July 2026
 * **Google Cybersecurity Professional Certificate** | Completed January 2026
-* **Welding Technology Certificate** | Chippewa Valley Technical College 
+* **Welding Technology Certificate** | Chippewa Valley Technical College
