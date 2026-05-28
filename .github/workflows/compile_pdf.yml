@@ -27,8 +27,12 @@ jobs:
           pip install markdown weasyprint
 
       - name: Compile Markdown to Professional PDF
+        env:
+          # 🌟 PULLS YOUR HIDDEN PHONE NUMBER SAFELY INTO THE TEMPORARY RUNNER
+          REAL_PHONE: ${{ secrets.RECRUITER_PHONE }}
         run: |
           python -c '
+          import os
           import markdown
           from weasyprint import HTML, CSS
 
@@ -42,6 +46,16 @@ jobs:
 
           # Convert to HTML structure
           raw_html = markdown.markdown(text)
+
+          # Grab the phone number from the secure environment variable
+          phone_number = os.environ.get("REAL_PHONE", "(###) ###-####")
+
+          # Inject the real phone number right under the main title header programmatically
+          header_addition = f"""
+          <div style="text-align: center; margin-bottom: 12pt; font-size: 10pt;">
+              Minnesota, USA | <a href="mailto:j.schoenick@pm.me">j.schoenick@pm.me</a> | {phone_number} | <a href="https://www.linkedin.com/in/jeremy-s-93686567">LinkedIn</a> | <a href="https://github.com/Meekseek">GitHub</a>
+          </div>
+          """
 
           # Apply professional typography styles for recruiters
           styled_html = f"""
@@ -57,13 +71,16 @@ jobs:
               a {{ color: #222222; text-decoration: none; }}
           </style>
           </head>
-          <body>{raw_html}</body>
+          <body>
+              {header_addition}
+              {raw_html}
+          </body>
           </html>
           """
 
           # Render direct to clean PDF output
           HTML(string=styled_html).write_pdf("Jeremy_Schoenick_Cybersecurity_Resume.pdf")
-          print("Successfully compiled resume PDF.")
+          print("Successfully compiled secure resume PDF with phone deployment.")
           '
 
       - name: Commit and Push Generated PDF
