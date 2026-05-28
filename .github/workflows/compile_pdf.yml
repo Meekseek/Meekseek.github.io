@@ -1,0 +1,66 @@
+```yaml
+name: Auto-Compile PDF Resume
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'index.md'          # Only fires when you actually update your resume text
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Convert Markdown to Clean PDF
+        uses: JustinBeckwith/md-to-pdf@v2
+        with:
+          input_path: index.md
+          output_path: resume.pdf
+          # Professional, crisp document styling optimized for ATS scanners
+          config: |
+            body {
+              font-family: Arial, sans-serif;
+              font-size: 11pt;
+              line-height: 1.5;
+              margin: 0.6in;
+              color: #222222;
+            }
+            h3 {
+              border-bottom: 2px solid #0056b3;
+              color: #0056b3;
+              margin-top: 16pt;
+              margin-bottom: 6pt;
+              text-transform: uppercase;
+              font-size: 12pt;
+            }
+            h4 {
+              margin-top: 8pt;
+              margin-bottom: 2pt;
+              font-size: 11pt;
+            }
+            ul {
+              margin-top: 2pt;
+              padding-left: 18px;
+            }
+            li {
+              margin-bottom: 4pt;
+            }
+            a {
+              color: #222222;
+              text-decoration: none;
+            }
+
+      - name: Commit and Push Generated PDF
+        run: |
+          git config --local user.email "pdf-compiler@github.com"
+          git config --local user.name "Resume-PDF-Bot"
+          git add resume.pdf
+          git diff-index --quiet HEAD || git commit -m "Automation: Compiled fresh resume.pdf from index.md updates"
+          git push
