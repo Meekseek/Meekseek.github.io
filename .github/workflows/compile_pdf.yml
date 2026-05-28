@@ -1,4 +1,3 @@
-```yaml
 name: Auto-Compile PDF Resume
 
 on:
@@ -6,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'index.md'          # Only fires when you actually update your resume text
+      - 'index.md'
 
 permissions:
   contents: write
@@ -23,7 +22,6 @@ jobs:
         with:
           input_path: index.md
           output_path: resume.pdf
-          # Professional, crisp document styling optimized for ATS scanners
           config: |
             body {
               font-family: Arial, sans-serif;
