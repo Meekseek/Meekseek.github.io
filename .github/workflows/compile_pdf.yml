@@ -49,11 +49,11 @@ jobs:
           # Grab your phone secret
           phone_number = os.environ.get("REAL_PHONE", "(###) ###-####")
 
-          # Create the comprehensive recruiter header
+          # Create the comprehensive recruiter header with live links
           recruiter_header = f"""
           <div style="text-align: center; margin-bottom: 16pt; font-size: 11pt;">
               <h2 style="margin: 0 0 4pt 0; text-transform: uppercase; color: #222222; font-size: 20pt; letter-spacing: 0.5px;">Jeremy Schoenick</h2>
-              Minnesota, USA | <a href="mailto:j.schoenick@pm.me">j.schoenick@pm.me</a> | {phone_number} | <a href="https://www.linkedin.com/in/jeremy-s-93686567">LinkedIn</a> | <a href="https://github.com/Meekseek">GitHub</a>
+              Minnesota, USA | <a class="header-link" href="mailto:j.schoenick@pm.me">j.schoenick@pm.me</a> | {phone_number} | <a class="header-link" href="https://www.linkedin.com/in/jeremy-s-93686567">LinkedIn</a> | <a class="header-link" href="https://github.com/Meekseek">GitHub</a>
           </div>
           """
 
@@ -63,10 +63,10 @@ jobs:
           else:
               body_markdown = "\n".join(lines)
 
-          # Convert the remaining text bodies into standard HTML tags
+          # Convert the remaining text bodies into standard HTML tags (handles markdown hyperlinks)
           raw_body_html = markdown.markdown(body_markdown)
 
-          # Apply professional typography styles for recruiters
+          # Apply professional typography styles for recruiters and make links blue/clickable
           styled_html = f"""
           <html>
           <head>
@@ -74,10 +74,16 @@ jobs:
               @page {{ size: letter; margin: 0.6in; }}
               body {{ font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #222222; }}
               h3 {{ border-bottom: 2px solid #0056b3; color: #0056b3; margin-top: 18pt; margin-bottom: 6pt; text-transform: uppercase; font-size: 12pt; }}
-              h4 {{ margin-top: 8pt; margin-bottom: 2pt; font-size: 11pt; font-weight: bold; }}
+              h4 {{ margin-top: 10pt; margin-bottom: 2pt; font-size: 11pt; font-weight: bold; }}
               ul {{ margin-top: 2pt; padding-left: 18px; }}
               li {{ margin-bottom: 4pt; }}
-              a {{ color: #222222; text-decoration: none; }}
+              
+              /* Style project and body links as professional blue and underline on hover */
+              a {{ color: #0056b3; text-decoration: none; font-weight: bold; }}
+              a:hover {{ text-decoration: underline; }}
+              
+              /* Keep header links clean but fully interactive */
+              a.header-link {{ color: #0056b3; text-decoration: none; font-weight: normal; }}
           </style>
           </head>
           <body>
@@ -89,7 +95,7 @@ jobs:
 
           # Render direct to clean PDF output
           HTML(string=styled_html).write_pdf("Jeremy_Schoenick_Cybersecurity_Resume.pdf")
-          print("Successfully compiled unified resume PDF.")
+          print("Successfully compiled resume PDF with active hyperlink architecture.")
           '
 
       - name: Commit and Push Generated PDF
@@ -97,5 +103,5 @@ jobs:
           git config --local user.email "pdf-compiler@github.com"
           git config --local user.name "Resume-PDF-Bot"
           git add Jeremy_Schoenick_Cybersecurity_Resume.pdf
-          git diff-index --quiet HEAD || git commit -m "Automation: Compiled unified professional resume PDF via Python swap engine"
+          git diff-index --quiet HEAD || git commit -m "Automation: Compiled professional resume PDF with live hyperlinks"
           git push
