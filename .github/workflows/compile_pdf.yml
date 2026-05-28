@@ -17,48 +17,59 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Convert Markdown to Clean PDF
-        uses: JustinBeckwith/md-to-pdf@v2
+      - name: Set Up Python
+        uses: actions/setup-python@v5
         with:
-          input_path: index.md
-          output_path: Jeremy_Schoenick_Cybersecurity_Resume.pdf
-          config: |
-            body {
-              font-family: Arial, sans-serif;
-              font-size: 11pt;
-              line-height: 1.5;
-              margin: 0.6in;
-              color: #222222;
-            }
-            h3 {
-              border-bottom: 2px solid #0056b3;
-              color: #0056b3;
-              margin-top: 16pt;
-              margin-bottom: 6pt;
-              text-transform: uppercase;
-              font-size: 12pt;
-            }
-            h4 {
-              margin-top: 8pt;
-              margin-bottom: 2pt;
-              font-size: 11pt;
-            }
-            ul {
-              margin-top: 2pt;
-              padding-left: 18px;
-            }
-            li {
-              margin-bottom: 4pt;
-            }
-            a {
-              color: #222222;
-              text-decoration: none;
-            }
+          python-version: '3.11'
+
+      - name: Install PDF Generation Prerequisites
+        run: |
+          pip install markdown weasyprint
+
+      - name: Compile Markdown to Professional PDF
+        run: |
+          python -c '
+          import markdown
+          from weasyprint import HTML, CSS
+
+          # Read raw markdown resume
+          with open("index.md", "r", encoding="utf-8") as f:
+              text = f.read()
+
+          # Strip Jekyll front matter if present
+          if text.startswith("---"):
+              _, _, text = text.split("---", 2)
+
+          # Convert to HTML structure
+          raw_html = markdown.markdown(text)
+
+          # Apply professional typography styles for recruiters
+          styled_html = f"""
+          <html>
+          <head>
+          <style>
+              @page {{ size: letter; margin: 0.6in; }}
+              body {{ font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #222222; }}
+              h3 {{ border-bottom: 2px solid #0056b3; color: #0056b3; margin-top: 16pt; margin-bottom: 6pt; text-transform: uppercase; font-size: 12pt; }}
+              h4 {{ margin-top: 8pt; margin-bottom: 2pt; font-size: 11pt; font-weight: bold; }}
+              ul {{ margin-top: 2pt; padding-left: 18px; }}
+              li {{ margin-bottom: 4pt; }}
+              a {{ color: #222222; text-decoration: none; }}
+          </style>
+          </head>
+          <body>{raw_html}</body>
+          </html>
+          """
+
+          # Render direct to clean PDF output
+          HTML(string=styled_html).write_pdf("Jeremy_Schoenick_Cybersecurity_Resume.pdf")
+          print("Successfully compiled resume PDF.")
+          '
 
       - name: Commit and Push Generated PDF
         run: |
           git config --local user.email "pdf-compiler@github.com"
           git config --local user.name "Resume-PDF-Bot"
           git add Jeremy_Schoenick_Cybersecurity_Resume.pdf
-          git diff-index --quiet HEAD || git commit -m "Automation: Compiled fresh resume.pdf from index.md updates"
+          git diff-index --quiet HEAD || git commit -m "Automation: Compiled fresh professional resume PDF via Python compiler"
           git push
