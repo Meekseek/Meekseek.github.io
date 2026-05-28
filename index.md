@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Jeremy Schoenick - Cybersecurity Analyst & Technical Operations Leader
+title: Jeremy Schoenick - Aspiring Cybersecurity Analyst & Technical Operations Leader
 ---
 Minnesota, USA | [j.schoenick@pm.me](mailto:j.schoenick@pm.me) | [LinkedIn](https://www.linkedin.com/in/jeremy-s-93686567) | [GitHub](https://github.com/Meekseek)
 
